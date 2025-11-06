@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+env/
+venv/
+rag-v1/
+
+# VSCode
+.vscode/
+
+# Qdrant local data 
+qdrant_data/
+
+# Transformers cache
+~/.cache/huggingface/
