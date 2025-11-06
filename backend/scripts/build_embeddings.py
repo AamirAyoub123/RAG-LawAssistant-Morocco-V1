@@ -20,7 +20,7 @@ if COLLECTION_NAME in [c.name for c in qdrant_client.get_collections().collectio
 
 # Load model first to get embedding dimension
 model = SentenceTransformer("all-MiniLM-L6-v2")
-embedding_dim = model.get_sentence_embedding_dimension()  # returns 384
+embedding_dim = model.get_sentence_embedding_dimension()  
 
 # Create new collection with correct vector size
 qdrant_client.create_collection(

@@ -2,7 +2,7 @@ import os
 from backend.app.services.retrieval import QdrantRetriever
 from sentence_transformers import SentenceTransformer
 from PyPDF2 import PdfReader
-from backend.app.services.embedding import COLLECTION_NAME  # or define it here
+from backend.app.services.embedding import COLLECTION_NAME  
 retriever = QdrantRetriever(collection_name=COLLECTION_NAME)
 
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
