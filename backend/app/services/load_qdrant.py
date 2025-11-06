@@ -9,7 +9,7 @@ qdrant_client = QdrantClient(url="http://localhost:6333")
 # Name of the collection
 collection_name = "moroccan_law"
 
-# Create the collection if it doesn't exist
+# Create the collection 
 if collection_name not in [c.name for c in qdrant_client.get_collections().collections]:
     qdrant_client.recreate_collection(
         collection_name=collection_name,
@@ -19,11 +19,11 @@ if collection_name not in [c.name for c in qdrant_client.get_collections().colle
     print(f"Collection '{collection_name}' created!")
 
 # Load your documents
-documents_folder = "backend/app/data"  # replace with your folder path
+documents_folder = "backend/app/data"  
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
 for filename in os.listdir(documents_folder):
-    if filename.endswith(".txt"):  # or ".pdf" if you preprocessed PDFs
+    if filename.endswith(".txt"):  
         with open(os.path.join(documents_folder, filename), "r", encoding="utf-8") as f:
             text = f.read()
         embedding = embedder.encode([text])[0]

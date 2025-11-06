@@ -15,17 +15,17 @@ class RAGPipeline:
         )
 
     def query(self, question, top_k=5, chunk_size=1000):
-        # Step 1: Embed the question
+        # Embed the question
         q_vec = self.embedder.encode([question])[0]
 
-        # Step 2: Retrieve top-k chunks from Qdrant
+        # Retrieve top-k chunks from Qdrant
         hits = self.qdrant_client.search(
             collection_name=self.collection_name,
             query_vector=q_vec,
             limit=top_k
         )
 
-        # Step 3: Split context if chunks are too long
+        # Split context if chunks are too long
         context_chunks = []
         for hit in hits:
             text = hit.payload["text"]
@@ -33,7 +33,7 @@ class RAGPipeline:
             pieces = textwrap.wrap(text, chunk_size)
             context_chunks.extend(pieces)
 
-        # Step 4: Generate answer per chunk in French
+        # Generate answer per chunk in French
         answers = []
         for i, chunk in enumerate(context_chunks):
             prompt = (
@@ -43,12 +43,12 @@ class RAGPipeline:
             out = self.generator(prompt, max_new_tokens=256)[0]['generated_text']
             answers.append(out.strip())
 
-        # Step 5: Merge all chunk answers
+        # Merge all chunk answers
         final_answer = " ".join(answers)
         return final_answer
 
 
-# Quick test
+# test
 if __name__ == "__main__":
     rag = RAGPipeline()
     while True:

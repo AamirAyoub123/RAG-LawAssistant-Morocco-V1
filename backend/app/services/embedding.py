@@ -8,7 +8,7 @@ import glob
 qdrant_client = QdrantClient(url="http://localhost:6333")
 collection_name = "moroccan_law"
 
-# Create collection if not exists
+# Create collection 
 if collection_name not in [c.name for c in qdrant_client.get_collections().collections]:
     qdrant_client.recreate_collection(
         collection_name=collection_name,
@@ -23,7 +23,7 @@ folder = "data/cleaned"
 for txt_file in glob.glob(f"{folder}/*.txt"):
     with open(txt_file, "r", encoding="utf-8") as f:
         text = f.read()
-    chunks = [text[i:i+1000] for i in range(0, len(text), 1000)]  # split in chunks
+    chunks = [text[i:i+1000] for i in range(0, len(text), 1000)] 
     vectors = embedder.encode(chunks).tolist()
 
     # Upload to Qdrant

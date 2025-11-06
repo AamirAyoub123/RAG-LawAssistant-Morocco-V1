@@ -13,18 +13,18 @@ rag = RAGPipeline()
 class QuestionRequest(BaseModel):
     question: str
 
-# Response model (optional)
+# Response model 
 class AnswerResponse(BaseModel):
     answer: str
 
 # POST endpoint
 @app.post("/ask_question_chat", response_model=AnswerResponse)
 async def ask_question(request: QuestionRequest):
-    answer = rag.query(request.question)  # <-- query(), not run()
+    answer = rag.query(request.question)  
     return {"answer": answer}
 
 
-# Simple health check
+
 @app.get("/")
 async def root():
     return {"message": "Backend is running!"}

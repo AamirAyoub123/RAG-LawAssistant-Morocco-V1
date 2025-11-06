@@ -1,6 +1,6 @@
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
-from backend.app.services.embedding import COLLECTION_NAME  # if you have it there
+from backend.app.services.embedding import COLLECTION_NAME 
 
 
 class QdrantRetriever:
