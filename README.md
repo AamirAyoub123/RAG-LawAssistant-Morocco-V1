@@ -162,8 +162,7 @@ The following libraries will be installed automatically:
 - Qdrant Client  
 - SentenceTransformers  
 - Transformers  
-- Pydantic  
-- NumPy  
+- Pydantic   
 
 ### **Docker**
 Ensure the Docker service is running:
@@ -182,7 +181,7 @@ Make sure the following are installed:
 - Python **3.10+**  
 - Docker (required for Qdrant)  
 - Git
-- 
+  
 ## 2. Clone Repository  
 ```bash
 git clone https://github.com/AamirAyoub123/RAG-LawAssistant-Morocco-V1.git
@@ -246,7 +245,7 @@ This project uses open-source components:
 * **FLAN-T5**
 * **Qdrant – Apache 2.0**
 * **FastAPI – MIT**
-* **SentenceTransformers **
+* **SentenceTransformers**
   
 Legal texts used for **educational and research purposes only.**
 
@@ -262,5 +261,6 @@ Legal texts used for **educational and research purposes only.**
 🔗 **Connect with me:**  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ayoub-aamir)  
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AamirAyoub123)
+
 
 
