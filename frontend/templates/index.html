@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>🇲🇦 Moroccan Law RAG Chatbot</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .question-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .model-selector {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .model-option {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .model-option input[type="radio"] {
+            display: none;
+        }
+
+        .model-option label {
+            display: block;
+            padding: 15px;
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .model-option input[type="radio"]:checked+label {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: block;
+            margin: 30px auto 0;
+            font-weight: 600;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .results-section.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            background: white;
+            border: 2px solid #e1e5e9;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .result-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+        }
+
+        .model-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f2f5;
+        }
+
+        .model-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .response-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .comparison-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #666;
+            border-top: 1px solid #e1e5e9;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+
+            header,
+            .content {
+                padding: 20px;
+            }
+
+            .model-selector {
+                flex-direction: column;
+            }
+
+            .model-option {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🇲🇦 Moroccan Law RAG</div>
+            <div class="tagline">Ask questions about Moroccan legal documents</div>
+        </header>
+
+        <div class="content">
+            <div class="question-section">
+                <div class="form-group">
+                    <label for="question">Enter your legal question:</label>
+                    <textarea id="question" placeholder="Example: Quel est le délai selon l'article 51 ? 
+Or: Comment notifier les griefs selon l'article 52 ?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Select model(s) to compare:</label>
+                    <div class="model-selector">
+                        <div class="model-option">
+                            <input type="radio" id="both" name="model_type" value="both" checked>
+                            <label for="both">Both Models</label>
+                        </div>
+                        <div class="model-option">
+                            <input type="radio" id="original" name="model_type" value="original">
+                            <label for="original">Original Model</label>
+                        </div>
+                        <div class="model-option">
+                            <input type="radio" id="finetuned" name="model_type" value="finetuned">
+                            <label for="finetuned">Fine-tuned Model</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-submit" onclick="askQuestion()">Ask Question</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Analyzing your question...</p>
+            </div>
+
+            <div class="results-section" id="results">
+                <!-- Results will be inserted here -->
+            </div>
+        </div>
+
+        <footer>
+            <p>Moroccan Law RAG System - Powered by FastAPI & Qdrant</p>
+            <p>Backend API: <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></p>
+        </footer>
+    </div>
+
+    <script>
+        async function askQuestion() {
+            const question = document.getElementById('question').value.trim();
+            const modelType = document.querySelector('input[name="model_type"]:checked').value;
+            const resultsDiv = document.getElementById('results');
+            const loadingDiv = document.getElementById('loading');
+
+            if (!question) {
+                alert('Please enter a question');
+                return;
+            }
+
+            // Show loading, hide results
+            loadingDiv.classList.add('show');
+            resultsDiv.classList.remove('show');
+
+            try {
+                const response = await fetch('/api/compare', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question: question })
+                });
+
+                const data = await response.json();
+
+                // Hide loading
+                loadingDiv.classList.remove('show');
+
+                // Display results
+                displayResults(data, modelType);
+
+                // Show results section
+                resultsDiv.classList.add('show');
+
+            } catch (error) {
+                console.error('Error:', error);
+                loadingDiv.classList.remove('show');
+                alert('Error getting response. Please try again.');
+            }
+        }
+
+        function displayResults(data, modelType) {
+            const resultsDiv = document.getElementById('results');
+
+            let html = `
+                <h2 style="margin-bottom: 20px; color: #333;">Question: ${data.question}</h2>
+            `;
+
+            if (modelType === 'both' || modelType === 'original') {
+                html += `
+                    <div class="result-card">
+                        <div class="model-title">
+                            <span class="model-badge" style="background: #4CAF50;">Original Model</span>
+                            <span style="color: #666; font-size: 0.9em;">Response time: ${data.original.time_ms}ms</span>
+                        </div>
+                        <div class="response-content">${data.original.response}</div>
+                    </div>
+                `;
+            }
+
+            if (modelType === 'both' || modelType === 'finetuned') {
+                html += `
+                    <div class="result-card">
+                        <div class="model-title">
+                            <span class="model-badge" style="background: #2196F3;">Fine-tuned Model</span>
+                            <span style="color: #666; font-size: 0.9em;">Response time: ${data.finetuned.time_ms}ms</span>
+                        </div>
+                        <div class="response-content">${data.finetuned.response}</div>
+                    </div>
+                `;
+            }
+
+            if (modelType === 'both') {
+                html += `
+                    <div class="comparison-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${data.comparison.time_difference}ms</div>
+                            <div class="stat-label">Time Difference</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" style="color: ${data.comparison.is_finetuned_faster ? '#4CAF50' : '#F44336'}">
+                                ${data.comparison.is_finetuned_faster ? 'Faster ✓' : 'Slower ✗'}
+                            </div>
+                            <div class="stat-label">Fine-tuned Performance</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${data.comparison.original_length}</div>
+                            <div class="stat-label">Original Length</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${data.comparison.finetuned_length}</div>
+                            <div class="stat-label">Fine-tuned Length</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            resultsDiv.innerHTML = html;
+        }
+
+        // Allow pressing Enter in textarea (with Ctrl+Enter or Shift+Enter)
+        document.getElementById('question').addEventListener('keydown', function (e) {
+            if ((e.ctrlKey || e.shiftKey) && e.key === 'Enter') {
+                e.preventDefault();
+                askQuestion();
+            }
+        });
+
+        // Auto-resize textarea
+        document.getElementById('question').addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    </script>
+</body>
+
+</html>
