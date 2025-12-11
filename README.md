@@ -68,3 +68,51 @@ Our system bridges the gap between **legal complexity** and **public accessibili
 ```bash
 git clone https://github.com/AamirAyoub123/RAG-LawAssistant-Morocco-V1.git
 cd RAG-LawAssistant-Morocco-V1
+
+---
+
+```
+moroccan-law-rag-v1/
+│
+├── docker-compose.yml              # Docker services (Qdrant + optional services)
+├── requirements.txt                # Python dependencies
+│
+├── backend/                        # Core RAG system
+│   ├── app/
+│   │   ├── main.py                # FastAPI server with endpoints
+│   │   └── services/
+│   │       ├── rag_pipeline.py    # Main RAG pipeline (Original model)
+│   │       ├── rag_finetuned.py   # Fine-tuned RAG pipeline
+│   │       ├── embedding.py       # SentenceTransformers embeddings
+│   │       └── retrieval.py       # Qdrant search interface
+│   │
+│   ├── scripts/
+│   │   ├── ingest_data.py         # Document ingestion and indexing
+│   │   ├── unsupervised_finetuning.py  # Fine-tuning script (8 hours)
+│   │   └── pdf_to_text.py         # PDF to text conversion
+│   │
+│   ├── tests/                     # Unit tests
+│   └── requirements.txt           # Backend-specific dependencies
+│
+├── frontend/                      # Web interface
+│   ├── main_frontend.py          # FastAPI frontend server
+│   ├── templates/
+│   │   └── index.html            # Comparison interface (Original vs Fine-tuned)
+│   └── static/                   # CSS / JavaScript / assets
+│
+├── data/                          # Legal documents
+│   ├── raw/                      # Original PDFs (Moroccan Family Code)
+│   └── cleaned/                  # Processed text files (for ingestion)
+│
+├── models/                        # AI models (local - not pushed to GitHub)
+│   ├── t5-legal-marocain/        # Fine-tuned model (8 hours training)
+│   └── t5-legal-unsupervised/    # Training checkpoints
+│
+├── docker/                        # Docker configurations
+│   └── Dockerfile                # Containerization setup
+│
+└── README.md                      # Project documentation
+
+```
+
+---
