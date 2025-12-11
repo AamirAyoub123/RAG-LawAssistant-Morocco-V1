@@ -68,6 +68,7 @@ Our system bridges the gap between **legal complexity** and **public accessibili
 ```bash
 git clone https://github.com/AamirAyoub123/RAG-LawAssistant-Morocco-V1.git
 cd RAG-LawAssistant-Morocco-V1
+```
 
 ---
 
@@ -116,3 +117,4 @@ moroccan-law-rag-v1/
 ```
 
 ---
+
