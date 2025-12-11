@@ -253,10 +253,14 @@ Legal texts used for **educational and research purposes only.**
 ---
 
 ## 👨‍💻 Author
+**Ayoub Aamir**  
 
-Ayoub Aamir
-Master Big Data & IoT – ENSAM Casablanca
-Email: aamir.ayoub@ensam-casa.ma
+🎓 **Master Big Data & IoT**  
+📍 *ENSAM Casablanca*  
+📧 [aamir.ayoub@ensam-casa.ma](mailto:aamir.ayoub@ensam-casa.ma)
 
+🔗 **Connect with me:**  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ayoub-aamir)  
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AamirAyoub123)
 
 
