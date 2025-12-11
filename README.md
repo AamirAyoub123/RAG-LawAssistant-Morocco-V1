@@ -236,7 +236,9 @@ Frontend available at:
 ```bash
 http://localhost:8001
 ```
+
 ---
+
 ##📜 License
 
 This project uses open-source components:
@@ -254,4 +256,5 @@ Legal texts used for **educational and research purposes only.**
 Ayoub Aamir
 Master Big Data & IoT – ENSAM Casablanca
 Email: aamir.ayoub@ensam-casa.ma
+
 
