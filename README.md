@@ -239,7 +239,7 @@ http://localhost:8001
 
 ---
 
-##📜 License
+## 📜 License
 
 This project uses open-source components:
 
@@ -247,6 +247,7 @@ This project uses open-source components:
 * **Qdrant – Apache 2.0**
 * **FastAPI – MIT**
 * **SentenceTransformers **
+  
 Legal texts used for **educational and research purposes only.**
 
 ---
@@ -256,5 +257,6 @@ Legal texts used for **educational and research purposes only.**
 Ayoub Aamir
 Master Big Data & IoT – ENSAM Casablanca
 Email: aamir.ayoub@ensam-casa.ma
+
 
 
