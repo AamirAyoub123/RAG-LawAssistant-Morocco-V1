@@ -1,13 +1,13 @@
 # backend/app/main.py
 from fastapi import FastAPI
 from pydantic import BaseModel
-from backend.app.services.rag_pipeline import RAGPipeline
+from .services.rag_finetuned import FineTunedRAGPipeline
+
+rag = FineTunedRAGPipeline(use_finetuned=True)
 
 # Initialize FastAPI
 app = FastAPI(title="Moroccan Law RAG Chatbot")
 
-# Initialize your RAG pipeline
-rag = RAGPipeline()
 
 # Request model for the API
 class QuestionRequest(BaseModel):
